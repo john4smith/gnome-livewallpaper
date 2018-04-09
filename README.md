@@ -3,7 +3,8 @@ Python3 Indicator for changes the Background every 15 min for the Gnome Desktop 
 ![Alt text](/screenshot.png?raw=true "Screenshot")
 ___
 ### Run
-#### (install the necessary Python Packages for your Linux Distribution)
+- install the necessary Python Packages for your Linux Distribution
+- install one Extension for Gnome [appindicator](https://extensions.gnome.org/extension/615/appindicator-support/) or [topicons](https://extensions.gnome.org/extension/1031/topicons/)
 ```
 python3 gnome-livewallpaper.py ~/Pictures
 ```
