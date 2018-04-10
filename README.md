@@ -9,9 +9,15 @@ ___
 python3 gnome-livewallpaper.py ~/Pictures
 ```
 ___
+### Install
+Copy the Script to "/usr/local/src/" with:
+```
+sudo install -dm755 /usr/local/src
+sudo install -m755 gnome-livewallpaper.py /usr/local/src
+```
+___
 ### Create a Autostarter
-Test it, befor you create a Autostarter and then copy the file to "/usr/local/src/".
-Then create the file "~/.config/autostart/gnome-livewallpaper.desktop" with the content:
+Create a File "~/.config/autostart/gnome-livewallpaper.desktop" with the content:
 ```
 [Desktop Entry]
 Type=Application
