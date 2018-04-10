@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Livewallpaper Indicator
-Exec=/usr/local/src/gnome-livewallpaper.py ~/Pictures
-Icon=preferences-desktop-wallpaper
-Comment=Autochange your Desktop Wallpaper
