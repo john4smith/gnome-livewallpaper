@@ -6,7 +6,12 @@ ___
 - install the necessary Python Packages for your Linux Distribution (try and error)
 - install one Extension for Gnome [appindicator](https://extensions.gnome.org/extension/615/appindicator-support/) or [topicons](https://extensions.gnome.org/extension/1031/topicons/)
 ```
-python3 gnome-livewallpaper.py ~/Pictures
+python3 gnome-livewallpaper.py /usr/share/backgrounds
+```
+___
+#### for Ubuntu 18.04 default setup, install this Packages
+```
+sudo apt install python3-gi gir1.2-appindicator3-0.1
 ```
 ___
 ### Install
@@ -17,12 +22,13 @@ sudo install -m755 gnome-livewallpaper.py /usr/local/src
 ```
 ___
 ### Create a Autostarter
+##### Change the Backgroundfolder (full Path!)
 Create a File "~/.config/autostart/gnome-livewallpaper.desktop" with the content:
 ```
 [Desktop Entry]
 Type=Application
 Name=Livewallpaper Indicator
-Exec=/usr/local/src/gnome-livewallpaper.py ~/Pictures
+Exec=/usr/local/src/gnome-livewallpaper.py /usr/share/backgrounds
 Icon=preferences-desktop-wallpaper
 Comment=Autochange your Desktop Wallpaper
 ```
