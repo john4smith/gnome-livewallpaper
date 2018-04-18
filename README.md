@@ -8,7 +8,6 @@ ___
 ```
 python3 gnome-livewallpaper.py /usr/share/backgrounds
 ```
-___
 #### for Ubuntu 18.04 default setup, install this Packages
 ```
 sudo apt install python3-gi gir1.2-appindicator3-0.1
