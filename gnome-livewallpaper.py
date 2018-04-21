@@ -40,34 +40,39 @@ def findWallpapers():
     global IMAGES
     IMAGES = []
     try:
-      SOURCE_FOLDER = sys.argv[1]
-      if os.path.isdir(SOURCE_FOLDER):
-        for root, dirs, files in os.walk(SOURCE_FOLDER):
-          for file in files:
-            if (file.endswith(".jpg") or file.endswith(".JPG") or file.endswith(".jpeg") or file.endswith(".JPEG")):
-              IMAGES.append(os.path.join(root, file))
-        if not IMAGES:
-          forceQuitText('No Images in the Source-Folder found!')
-      else:
-        forceQuitText('The given Value is not a Folder!')
+        SOURCE_FOLDER = sys.argv[1]
+        if os.path.isdir(SOURCE_FOLDER):
+            for root, dirs, files in os.walk(SOURCE_FOLDER):
+                for file in files:
+                    if (file.endswith(".jpg") or file.endswith(".JPG") or file.endswith(".jpeg") or file.endswith(".JPEG")):
+                        IMAGES.append(os.path.join(root, file))
+            random.shuffle(IMAGES)
+            if not IMAGES:
+                forceQuitText('No Images in the Source-Folder found!')
+        else:
+            forceQuitText('The given Value is not a Folder!')
     except:
-      forceQuitText('No Value for the Source-Folder given!')
+        forceQuitText('No Value for the Source-Folder given!')
 
 def randomWallpaper(widget):
-   IMAGE = IMAGES[random.randrange(0, len(IMAGES))]
-   if os.path.isfile(IMAGE):
-     gsettings_screensaver.set_string("picture-uri", "file://" + IMAGE)
-     gsettings_background.set_string("picture-uri", "file://" + IMAGE)
-   return True
+    global IMAGE_NUMBER
+    if os.path.isfile(IMAGES[IMAGE_NUMBER]):
+        gsettings_screensaver.set_string("picture-uri", "file://" + IMAGES[IMAGE_NUMBER])
+        gsettings_background.set_string("picture-uri", "file://" + IMAGES[IMAGE_NUMBER])
+    if IMAGE_NUMBER < ( len(IMAGES) - 1 ):
+        IMAGE_NUMBER += 1
+    else:
+        IMAGE_NUMBER = 0
+    return True
 
 def toggleSwitch(widget):
     global timerAsync
-    isActive=widget.get_active()
+    isActive = widget.get_active()
     if isActive:
-      timerAsync = GLib.timeout_add_seconds(NextWallpaperSec, randomWallpaper, '')
+        timerAsync = GLib.timeout_add_seconds(NextWallpaperSec, randomWallpaper, '')
     else:
-      if timerAsync > 0:
-        GLib.source_remove(timerAsync)
+        if timerAsync > 0:
+            GLib.source_remove(timerAsync)
 
 def renderMenu():
     global menu_next
@@ -97,16 +102,16 @@ def renderMenu():
 if __name__ == "__main__":
   # Lock File
   try:
-    lockFile = open('/tmp/livewallpaper.lock','w')
-    # Try to aquire lock
-    fcntl.flock(lockFile, fcntl.LOCK_EX|fcntl.LOCK_NB)
-    # File has not been locked before
-    fileIsLocked = False
+      lockFile = open('/tmp/livewallpaper.lock','w')
+      # Try to aquire lock
+      fcntl.flock(lockFile, fcntl.LOCK_EX|fcntl.LOCK_NB)
+      # File has not been locked before
+      fileIsLocked = False
   except:
-    # File is already locked
-    fileIsLocked = True
+      # File is already locked
+      fileIsLocked = True
   if fileIsLocked:
-    sys.exit('LiveWallpaper Indicator instance already running')
+      sys.exit('LiveWallpaper Indicator instance already running')
   lockFile.write('%d\n'%os.getpid())
   lockFile.flush()
 
@@ -116,6 +121,7 @@ if __name__ == "__main__":
   ind.set_status(appindicator.IndicatorStatus.ACTIVE)
 
   # Main Env Vars
+  IMAGE_NUMBER = 0
   NextWallpaperSec = 900 # 900 Sec or 15 Min
 
   # gsettings
